@@ -28,10 +28,6 @@ router.get('/', function(req, res) {
 
 // more routes for our API will happen here
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api', router);
-
 _.forEach(routes, function(route) {
   app.use(route.path, route.router);
 });

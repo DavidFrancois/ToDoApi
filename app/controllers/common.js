@@ -1,26 +1,22 @@
 var _ = require('lodash');
 
-var configs = require('./../configs');
+// Will be use to normalise data sent to renderers and transformers callback
+// var configs = require('./../configs');
 
 module.exports.get = function (Model) {
     return function (req, res, next) {
         Model.find(function(err, model) {
-            var response = { err: err, data: model };
-            _.set(req, [configs.server.name, 'response'].join('.'), response);
-            return next();
+            // used when transformers and renderes will be set
+            // var response = { err: err, data: model };
+            // _.set(req, [configs.server.name, 'response'].join('.'), response);
+            // return next();
+            if (err) throw err;
+            res.status(200).send(model);
         });
     }
 }
 
-module.exports.create = function (Model) {
-    return function (req, res, next) {
-        Model.create(req.body, function(err, model) {
-            var response = { err: err, data: model };
-            _.set(req, [configs.server.name, 'response'].join('.'), response);
-            return next();
-        })
-    }
-}
+module.exports.create = function (Model) {}
 
 module.exports.update = function (Model) {
     return function (req, res, next) {
